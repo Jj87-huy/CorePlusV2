@@ -5,6 +5,12 @@ target/
 *.zip
 *.tar.gz
 *.rar
+*.class
+*.jar.original
+*.log
+*.tmp
+*.temp
+*.bak
 
 # --- IDE (IntelliJ IDEA) ---
 .idea/
