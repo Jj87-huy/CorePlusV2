@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import me.HaoMC7978.coreplus.api.AbstractSystem;
+import me.HaoMC7978.coreplus.commands.SystemCmd;
 import me.HaoMC7978.coreplus.manager.SystemManager;
 
 public final class Main extends JavaPlugin {
@@ -17,30 +18,48 @@ public final class Main extends JavaPlugin {
         instance = this;
         this.systemManager = new SystemManager();
 
-        // TỰ ĐỘNG QUÉT VÀ ĐĂNG KÝ
+        // 1. TỰ ĐỘNG QUÉT VÀ ĐĂNG KÝ CÁC SYSTEM
         try {
-            // Quét tất cả các class trong package 'systems'
+            // Quét tất cả các class kế thừa AbstractSystem trong package 'systems'
             Reflections reflections = new Reflections("me.HaoMC7978.coreplus.systems");
             Set<Class<? extends AbstractSystem>> classes = reflections.getSubTypesOf(AbstractSystem.class);
 
             for (Class<? extends AbstractSystem> clazz : classes) {
-                // Chỉ lấy các class thực thi trực tiếp (không lấy abstract class).
+                // Chỉ khởi tạo các class thực thi (không lấy abstract class)
                 if (!java.lang.reflect.Modifier.isAbstract(clazz.getModifiers())) {
                     AbstractSystem system = clazz.getDeclaredConstructor().newInstance();
                     systemManager.register(system);
                 }
             }
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | java.lang.reflect.InvocationTargetException e) {
-            getLogger().severe("Error while automatically registering system: " + e.getMessage());
+        } catch (Exception e) {
+            getLogger().severe("Lỗi khi tự động kích hoạt hệ thống: " + e.getMessage());
+            e.printStackTrace();
         }
 
-        getLogger().info("CorePlusv2 đã tự động kích hoạt tất cả các hệ thống!");
+        // 2. ĐĂNG KÝ LỆNH QUẢN LÝ /SYSTEM
+        if (getCommand("system") != null) {
+            SystemCmd systemCmd = new SystemCmd();
+            getCommand("system").setExecutor(systemCmd);
+            getCommand("system").setTabCompleter(systemCmd);
+        }
+
+        getLogger().info("CorePlusv2 đã khởi chạy và tự động kích hoạt các hệ thống!");
     }
 
     @Override
     public void onDisable() {
-        if (systemManager != null) systemManager.disableAll();
+        // Tắt tất cả hệ thống khi server đóng để tránh rò rỉ dữ liệu
+        if (systemManager != null) {
+            systemManager.disableAll();
+        }
     }
 
-    public static Main getInstance() { return instance; }
+    // Getter để các class khác (như SystemCmd) truy cập vào Manager
+    public SystemManager getSystemManager() {
+        return this.systemManager;
+    }
+
+    public static Main getInstance() {
+        return instance;
+    }
 }
