@@ -1,36 +1,40 @@
 name: CorePlusv2
 version: '${project.version}'
-main: me.haomc7978.coreplus.Main
+main: me.HaoMC7978.coreplus.Main
 api-version: '1.20'
 prefix: CorePlus
 author: HaoMC7978
 description: Advanced Core system with Async API, Adventure and PAPI support.
 
-# Các plugin bắt buộc phải có để CorePlusv2 chạy được
+# Các plugin bắt buộc phải có
 depend:
   - PlaceholderAPI
 
-# Các plugin có thể có hoặc không (nếu có thì CorePlusv2 sẽ load sau chúng)
+# Các plugin hỗ trợ thêm
 softdepend:
   - Vault
   - LuckPerms
 
-# Đăng ký các lệnh gốc (Lệnh chính của các module sẽ được đăng ký tại đây)
+# Đăng ký các lệnh dựa trên code Java đã viết
 commands:
-  coreplus:
-    description: Main command for CorePlusv2
-    aliases: [cp2, core]
-  combat:
-    description: System Combat command
-  system:
-    description: System management command
+  core:
+    description: Lệnh chính quản trị plugin (reload cấu hình).
+    aliases: [coreplus, cp2]
     permission: coreplus.admin
+    usage: /core reload
+  system:
+    description: Lệnh quản lý các module hệ thống (enable/disable/reload).
+    permission: coreplus.admin
+    usage: /system <action> <id>
+  combat:
+    description: Lệnh dành cho hệ thống chiến đấu.
+    permission: coreplus.user
 
-# Đăng ký các quyền hạn (Permissions)
+# Đăng ký quyền hạn
 permissions:
   coreplus.admin:
-    description: Full access to CorePlusv2 features
+    description: Quyền hạn cao nhất để quản lý CorePlusv2.
     default: op
   coreplus.user:
-    description: Basic access for players
+    description: Quyền cơ bản cho người chơi.
     default: true
