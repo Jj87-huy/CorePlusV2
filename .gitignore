@@ -1,29 +1,26 @@
-# --- IDE (VS Code) ---
-.vscode/
-.history/
-
-pom.xml
+# Maven build
 target/
-.idea/
-*.iml
-*.iws
-*.ipr
 *.class
-*.log
 *.jar
 *.war
 *.ear
-*.db
-*.sql
-*.sqlite
-*.bak
-*.tmp
-*.swp
-*.swo
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
 .DS_Store
 Thumbs.db
-*.zip
-*.tar.gz
-*.7z
+
+# Logs
 *.log
-*.out
+
+# Local config / secrets
+config.yml
+database.yml
+.env
+
+# Maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar
