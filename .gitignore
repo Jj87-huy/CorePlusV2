@@ -1,0 +1,31 @@
+# --- Maven ---
+target/
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# --- IDE (IntelliJ IDEA) ---
+.idea/
+*.iml
+out/
+gen/
+
+# --- IDE (VS Code) ---
+.vscode/
+.history/
+
+# --- Nhật ký và Tạm thời ---
+*.log
+*.tmp
+*.temp
+.DS_Store (cho Mac)
+
+# --- File JAR build ra (Thường không đẩy lên Git) ---
+# Nếu bạn muốn giữ lại bản release thì có thể bỏ dòng này
+*.jar
+
+# --- Database tạm (Nếu dùng SQLite/H2 cục bộ) ---
+*.db
+*.sqlite
