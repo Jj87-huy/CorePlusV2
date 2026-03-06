@@ -51,8 +51,19 @@ public class SystemManager {
     }
 
     /**
+     * Tải lại TOÀN BỘ các hệ thống đã đăng ký.
+     * Hỗ trợ cho lệnh /system reload all.
+     */
+    public void reloadAll() {
+        systems.values().forEach(s -> {
+            s.disable();
+            s.enable();
+        });
+    }
+
+    /**
      * Lấy danh sách ID của tất cả các hệ thống đã đăng ký.
-     * HÀM NÀY SẼ SỬA LỖI [ERROR] TRONG SystemCmd.java
+     * Dùng cho Tab-Complete trong SystemCmd.
      */
     public List<String> getRegisteredSystemIds() {
         return new ArrayList<>(systems.keySet());
