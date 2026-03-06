@@ -6,14 +6,11 @@ prefix: CorePlus
 author: HaoMC7978
 description: Advanced Core system with Async API, Adventure and PAPI support.
 
-# Các plugin bắt buộc phải có
-depend:
-  - PlaceholderAPI
-
 # Các plugin hỗ trợ thêm
 softdepend:
   - Vault
   - LuckPerms
+  - PlaceholderAPI
 
 # Đăng ký các lệnh dựa trên code Java đã viết
 commands:
